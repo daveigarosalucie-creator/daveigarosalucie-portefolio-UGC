@@ -423,6 +423,27 @@
     width: 78%; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; padding: 0 24px;
   }
 
+  /* ---------- FORMULAIRE DE CONTACT ---------- */
+  .cform {
+    margin-top: 48px; padding: clamp(22px, 4vw, 34px);
+    background: var(--card-bg); border: 1px solid var(--line); border-radius: 22px;
+    display: flex; flex-direction: column; gap: 14px; max-width: 720px;
+  }
+  .cform h3 { font-size: 1.3rem; margin-bottom: 4px; }
+  .cform-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cform label { display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: var(--espresso-soft); min-width: 0; }
+  .cform input, .cform textarea {
+    font: inherit; font-size: 1rem; color: var(--espresso);
+    background: var(--ivory); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; width: 100%;
+  }
+  .cform textarea { resize: vertical; }
+  .cform input:focus, .cform textarea:focus { outline: 2px solid var(--gold); outline-offset: 1px; border-color: transparent; }
+  .cform button { align-self: flex-start; border: 0; cursor: pointer; font: inherit; }
+  .cform-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .cform-note { margin: 0; font-size: 0.78rem; color: var(--espresso-soft); }
+  .cform-ok { margin: 0; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--accent-red); color: var(--espresso); }
+  @media (max-width: 760px) { .cform-row { grid-template-columns: 1fr; } }
+
   footer {
     text-align: center; padding: 28px 20px 28px;
     font-size: 0.8rem; color: var(--espresso-soft); border-top: 1px solid var(--line);
@@ -835,10 +856,34 @@
         <button type="button" class="empty"></button>
       </div>
     </div>
+
+    <form class="cform" id="cform" action="https://formsubmit.co/daveigarosalucie@gmail.com" method="POST">
+      <h3>Ou écris-moi directement ici</h3>
+      <input type="hidden" name="_subject" value="Nouvelle demande depuis ton portfolio UGC">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://daveigarosalucie-creator.github.io/daveigarosalucie-portefolio-UGC/?merci=1#contact">
+      <input type="text" name="_honey" class="cform-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="cform-row">
+        <label>Ton nom<input type="text" name="Nom" required autocomplete="name"></label>
+        <label>Marque / entreprise<input type="text" name="Marque" autocomplete="organization"></label>
+      </div>
+      <label>E-mail<input type="email" name="email" required autocomplete="email"></label>
+      <label>Ton projet<textarea name="Projet" rows="5" required placeholder="Produit, type de vidéo, nombre de vidéos, délai…"></textarea></label>
+      <button type="submit" class="btn-primary">Envoyer</button>
+      <p class="cform-note">Tes informations servent uniquement à te répondre. Elles ne sont ni conservées sur ce site, ni partagées.</p>
+      <p class="cform-ok" id="cform-ok" hidden>Merci ! Ton message est bien parti, je te réponds rapidement.</p>
+    </form>
   </section>
 
 </div>
 
+<script>
+  // Message de confirmation après l'envoi du formulaire
+  if (/[?&]merci=1/.test(location.search)) {
+    var ok = document.getElementById('cform-ok');
+    if (ok) ok.hidden = false;
+  }
+</script>
 <footer data-t="footer">Lucie Da Veiga — Créatrice de contenu UGC, Île-de-France</footer>
 
 <input type="file" id="in-video" accept="video/mp4,video/quicktime,video/webm,.mp4,.mov,.m4v,.webm" hidden>
